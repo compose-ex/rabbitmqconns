@@ -1,11 +1,8 @@
 package main
 
 import (
-	"crypto/tls"
-	"crypto/x509"
 	"fmt"
-	"io/ioutil"
-	"log"
+  "log"
 
 	"github.com/streadway/amqp"
 )
@@ -18,18 +15,13 @@ func failOnError(err error, msg string) {
 }
 
 func main() {
-	cfg := new(tls.Config)
-	cfg.RootCAs = x509.NewCertPool()
 
-	if ca, err := ioutil.ReadFile("composecert"); err == nil {
-		cfg.RootCAs.AppendCertsFromPEM(ca)
-	}
-	conn, err := amqp.DialTLS("amqps://[user]:[password]@aws-eu-west-1-portal.1.dblayer.com:11020/tangy-rabbitmq-80", cfg)
+	conn, err := amqp.Dial("amqps://user:password@portal194-1.rabbity.compose-3.composedb.com:10194/Rabbity")
 
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
 
-	message := "This is not a message, this is a tribute to a message"
+	message := "This is not a message, this is a go tribute to a message"
 	routingKey := "tributes"
 	exchangeName := "postal"
 

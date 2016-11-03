@@ -1,13 +1,11 @@
 require 'bunny'
 
-conn = Bunny.new('amqps://[user]:[password]@aws-eu-west-1-portal.1.dblayer.com:11020/tangy-rabbitmq-80',
-                 verify_peer: true,
-                 tls_ca_certificates: ['./composecert'])
+conn = Bunny.new('amqps://user:password@portal194-1.rabbity.compose-3.composedb.com:10194/Rabbity')
 conn.start
 
 ch = conn.create_channel
 
-message = 'This is not a message, this is a tribute to a message'
+message = 'This is not a message, this is a ruby tribute to a message'
 routingKey = 'tributes'
 exchangeName = 'postal'
 
