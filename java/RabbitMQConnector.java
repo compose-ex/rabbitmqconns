@@ -28,10 +28,6 @@ public class RabbitMQConnector {
 
   		channel.exchangeDeclare(exchangeName, "direct", true);
 
-  		String queueName = channel.queueDeclare().getQueue();
-
-  		channel.queueBind(queueName, exchangeName, routingKey);
-
   		channel.basicPublish(exchangeName, routingKey, null, message.getBytes());
 
   		channel.close();
